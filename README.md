@@ -104,6 +104,22 @@
   		def hello
     		print "hello world I am"
   		end
+
+  		def test_name
+    		name = "Ruby"          为局部变量赋值
+    		self.name = "Ruby"     调用name= 方法
+
+    	另外,在调用像 name= 方法这样的以 = 结束的方法时,有一点需要特别注意。
+    	即使实例方法中已经有了 name = "Ruby" 这样的定义,但如果仅在方法内部 定义名为 name 的局部变量,也不能以缺省接收者的方式调用 name= 方法。
+    	这种情况下,我们需要用 self.name = "Ruby" 的形式来显式调用 name 方法。
+
+		end
+
+		类方法
+		def HelloWorld.hello(name)
+    		puts "#{name} said hello."
+  		end
+
 	end
 
 
@@ -111,5 +127,62 @@
 	bob.hello
 	bob.setName("change")
 	p bob.getName
+
+### 类方法
+	备注 class << 类名 ~ end 这种写法的类定义称为单例类定义,单例类定义中定义的方法称为单例方法。
+
+	class << HelloWorld 
+		def hello(name)
+			puts "#{name} said hello." end
+	end
+	HelloWorld.hello("John")
+
+
+	class HelloWorld
+		def self.hello(name)
+			puts "#{name} said hello." 
+		end
+	end
+
+### 常量
+	在 class 上下文中可以定义常量。
+
+	class HelloWorld 
+		Version = "1.0"
+	end
+	对于在类中定义的常量,我们可以像下面那样使用 :: 通过类名来实现外部访问。
+	p HelloWorld::Version  #=> "1.0"
+
+### 类变量
+	以 @@ 开头的变量称为类变量。类变量是该类所有实例的共享变量,这一点与常量类似,不同的是我们可以多次修改类变量的值。
+	另外,与实例变量一样, 从类的外部访问类变量时也需要存取器。不过,由于 attr_accessor 等存取器都不能使用,因此需要直接定义。
+
+
+	class HelloCount
+
+		@@count = 0 # 调用hello 方法的次数
+
+		def HelloCount.count 		# 读取调用次数的类方法 @@count
+		end
+                           
+		def initialize(myname="Ruby") 
+			@name = myname
+		end
+
+		def hello
+			@@count += 1 # 累加调用次数
+			puts "Hello, world. I am #{@name}.\n"
+		end 
+	end
+	
+	bob = HelloCount.new("Bob") 
+	alice = HelloCount.new("Alice") 
+	ruby = HelloCount.new
+
+	p HelloCount.count      #=> 0
+	bob.hello 
+	alice.hello 
+	ruby.hello
+	p HelloCount.count      #=> 3
 
 
