@@ -174,7 +174,7 @@
 			puts "Hello, world. I am #{@name}.\n"
 		end 
 	end
-	
+
 	bob = HelloCount.new("Bob") 
 	alice = HelloCount.new("Alice") 
 	ruby = HelloCount.new
@@ -185,4 +185,28 @@
 	ruby.hello
 	p HelloCount.count      #=> 3
 
+### 块
+	我们使用 module 关键字来创建模块。
+	语法与创建类时几乎相同。模块名的首字母必须大写。
+
+	module 模块名  
+		模块定义 
+	end
+
+
+	module HelloModule					module 关键字 
+		Version = "1.0"					定义常量
+
+		def hello(name)					定义方法
+			puts "Hello, #{name}."
+		end
+
+	module_function :hello				指定 hello 方法为模块函数
+	end
+
+	p HelloModule::Version				=> "1.0"
+	HelloModule.hello("Alice")			=> Hello, Alice.
+	include HelloModule					包含模块
+	p Version							=> "1.0"
+	hello("Alice")						=> Hello, Alice.		
 
