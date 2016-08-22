@@ -71,5 +71,45 @@
 	函数式方法: 虽说是没有接收者,但并不表示该方法就真的没有可作为接收者的对象,只是在函数式方法这个特殊情况下,可以省略接收者而已。
 		print "hello!"  在命令行输出字符串
 
+### 类和模块
+	当想知道某个对象属于哪个类时,我们可以使用 class 方法。
+		ary = []
+		p ary.class #=> Array
+	当判断某个对象是否属于某个类时,我们可以使用 instance_of 方法
+		ary = []
+		p ary.instance_of?(Array)  #=>true
+
+### 类的创建
+	attr_reader :name  只读(定义 name 方法)
+	attr_writer :name  只写(定义 name= 方法)
+	attr_accessor :name  读写(定义以上两个方法)
+
+
+	class HelloWorld
+
+		attr_accessor :name
+
+		def initialize(myName = "ruby")
+    		@name = myName				实例变量name 
+  		end
+
+  		def setName(value)
+    		@name = value
+  		end
+
+  		def getName
+    		@name
+  		end
+
+  		def hello
+    		print "hello world I am"
+  		end
+	end
+
+
+	bob = HelloWorld.new("Bob")
+	bob.hello
+	bob.setName("change")
+	p bob.getName
 
 
